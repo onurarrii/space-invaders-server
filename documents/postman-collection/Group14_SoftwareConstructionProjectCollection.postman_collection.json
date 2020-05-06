@@ -1,0 +1,1271 @@
+{
+	"info": {
+		"_postman_id": "5c46ad18-cc72-48f4-b428-bc164cfa70c2",
+		"name": "Group14_SoftwareConstructionProjectCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testUser\",\n\t\"password\": \"testUser123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ccd61163-1ca1-485f-ad72-c836f79d9c04",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "93696793-34d5-4888-86a8-3604a3645926",
+								"exec": [
+									"    \r",
+									"    try {\r",
+									"        var loginResponse = JSON.parse(responseBody);\r",
+									"        var token = loginResponse.token\r",
+									"    }\r",
+									"    catch (err) {\r",
+									"        console.log(err);\r",
+									"    }\r",
+									"    pm.globals.set(\"token\", token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testUser\",\n\t\"password\": \"testUser123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Sample auth requests for register and login.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "539c8977-aca2-41b4-8b1d-6e435d471560",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0ea8684-9e3e-4362-a41d-bce23a7d388c",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Leaderboard",
+			"item": [
+				{
+					"name": "Get Leaderboard 7 days",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/leaderboard?limit=10&latest-days-limit=7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "latest-days-limit",
+									"value": "7"
+								}
+							]
+						},
+						"description": "This request returns the leaaderbard for the past 7 days."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Leaderboard 30 days",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/leaderboard?limit=30&latest-days-limit=30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "30"
+								},
+								{
+									"key": "latest-days-limit",
+									"value": "30"
+								}
+							]
+						},
+						"description": "This request returns the leaaderbard for the past 30 days."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Leaderboard All Time",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/leaderboard?limit=50",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						},
+						"description": "This request returns the leaaderbard of all time."
+					},
+					"response": []
+				}
+			],
+			"description": "Sample leaderboard requests for fetching different leaderboard time frames.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Game",
+			"item": [
+				{
+					"name": "Create Game",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"create"
+							]
+						},
+						"description": "This request is used to create a new game room for user."
+					},
+					"response": []
+				},
+				{
+					"name": "Start Game",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/start",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"start"
+							]
+						},
+						"description": "This request is used to start the game."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"status"
+							]
+						},
+						"description": "This request returns the current game status. Current level, is game completed, is game started and current game objects in the screen."
+					},
+					"response": []
+				},
+				{
+					"name": "Reposition Player",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"x\": 300,\n\t\"y\": 90\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/game/reposition",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"reposition"
+							]
+						},
+						"description": "This request is for mouse position changes. Used to change the player position according to the cursor coordinates."
+					},
+					"response": []
+				},
+				{
+					"name": "End Level Cheat ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/cheat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"cheat"
+							]
+						},
+						"description": "This request is used to kill all enemies and pass the level"
+					},
+					"response": []
+				}
+			],
+			"description": "Sample game requests for playing the game.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Example Game Flow",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testUser\",\n\t\"password\": \"testUser123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"register"
+							]
+						},
+						"description": "With this request user registers with username = testUser, password = testUser123. Note that if the Example Game Flow directory is run several times, this request will fail."
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ccd61163-1ca1-485f-ad72-c836f79d9c04",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "93696793-34d5-4888-86a8-3604a3645926",
+								"exec": [
+									"\r",
+									"pm.test(\"Response must be valid and have a body.\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var loginResponse = JSON.parse(responseBody);\r",
+									"var token = loginResponse.token\r",
+									"\r",
+									"pm.test(\"Response must have a token.\", function (){\r",
+									"    pm.expect(loginResponse).to.have.property('token');\r",
+									"})\r",
+									"\r",
+									"pm.globals.set(\"token\", token);\r",
+									"\r",
+									"pm.test(\"Token must be saved to the environment.\", function (){\r",
+									"    pm.expect(pm.globals.get(\"token\")).to.not.be.null;\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"testUser\",\n\t\"password\": \"testUser123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "After registering, user logins with username = testUser, password = testUser123. Then the token server returns is saved to postman globals."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "24b0bd53-e5f6-414c-9f9f-403d99ce5ccd",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message must be success.\", function (){\r",
+									"    pm.expect(JSON.parse(responseBody).message).to.equal(\"Success\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"create"
+							]
+						},
+						"description": "This request is used to create a new game room for user."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Status Before Start",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8cc48a71-3474-4733-9b6a-ee7a9eba1d5c",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"let gameStatus = JSON.parse(responseBody);\r",
+									"let level = gameStatus.level;\r",
+									"let gameCompleted = gameStatus.gameCompleted;\r",
+									"let gameStarted = gameStatus.gameStarted;\r",
+									"\r",
+									"pm.test(\"Game level must be equal to 1\", function (){\r",
+									"    pm.expect(level).to.equal(\"LEVEL_1\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Game completed must be false\", function (){\r",
+									"    pm.expect(gameCompleted).to.equal(false);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Game started must be false\", function (){\r",
+									"    pm.expect(gameStarted).to.equal(false);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"const gameObjects = gameStatus.gameObjects;\r",
+									"\r",
+									"const enemyObjects = gameObjects.filter(gameObject => gameObject.spaceshipType === \"ENEMY\");\r",
+									"const playerObjects = gameObjects.filter(gameObject => gameObject.spaceshipType === \"PLAYER\");\r",
+									"\r",
+									"\r",
+									"pm.test(\"Enemy count must be equal to 3\", function (){\r",
+									"    pm.expect(enemyObjects.length).to.equal(3);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Player count must be equal to 1\", function (){\r",
+									"    pm.expect(playerObjects.length).to.equal(1);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"status"
+							]
+						},
+						"description": "This request returns the current game status before starting the game. In this request everything should be in their initial positions and there should be no elements present other than enemies and player."
+					},
+					"response": []
+				},
+				{
+					"name": "Start Game",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc92420a-7896-4fd4-99bc-39d9f9cd2515",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message must be success.\", function (){\r",
+									"    pm.expect(JSON.parse(responseBody).message).to.equal(\"Success\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/start",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"start"
+							]
+						},
+						"description": "This request is used to start the game."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Status After Start",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "77d19b37-ee03-46d6-ae83-3e943481b12a",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"let gameStatus = JSON.parse(responseBody);",
+									"let level = gameStatus.level;",
+									"let gameCompleted = gameStatus.gameCompleted;",
+									"let gameStarted = gameStatus.gameStarted;",
+									"",
+									"pm.test(\"Game level must be equal to 1\", function (){",
+									"    pm.expect(level).to.equal(\"LEVEL_1\");",
+									"});",
+									"",
+									"pm.test(\"Game completed must be false\", function (){",
+									"    pm.expect(gameCompleted).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Game started must be true\", function (){",
+									"    pm.expect(gameStarted).to.equal(true);",
+									"});",
+									"",
+									"// Wait 5 seconds to let the player kill first enemy",
+									"setTimeout(function(){}, 5000);",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"status"
+							]
+						},
+						"description": "This request returns the current game status after starting the game. After this request the test waits for 5 seconds to let the player kill their first enemy."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Status After First Kill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "77d19b37-ee03-46d6-ae83-3e943481b12a",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"const gameStatus = JSON.parse(responseBody);",
+									"const gameObjects = gameStatus.gameObjects;",
+									"",
+									"const enemyObjects = gameObjects.filter(gameObject => gameObject.spaceshipType === \"ENEMY\");",
+									"",
+									"",
+									"pm.test(\"Enemy count must be equal to 2\", function (){",
+									"    pm.expect(enemyObjects.length).to.equal(2);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"status"
+							]
+						},
+						"description": "This request returns the current game status after player kills first enemy. Now enemy count should be 2."
+					},
+					"response": []
+				},
+				{
+					"name": "Reposition Player",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "244dfa83-9455-4523-914f-fb90b9c904de",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {\r",
+									"     pm.response.to.be.ok;\r",
+									"     pm.response.to.be.withBody;\r",
+									"     pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message must be success.\", function (){\r",
+									"    pm.expect(JSON.parse(responseBody).message).to.equal(\"Success\");\r",
+									"})\r",
+									"\r",
+									"// Wait 5 seconds to let the player reposition itself\r",
+									"setTimeout(function(){}, 4000);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"x\": 300,\n\t\"y\": 90\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/game/reposition",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"reposition"
+							]
+						},
+						"description": "This request is for mouse position changes. With this request player is moved to x = 300, y = 90. Player moves slowly to the new position. So after this request, test waits for 4 seconds to let the player go to their new position."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Status After Reposition",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7df7d29-0a64-4b06-8b4e-f28e8540869d",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"let gameStatus = JSON.parse(responseBody);",
+									"let level = gameStatus.level;",
+									"let gameCompleted = gameStatus.gameCompleted;",
+									"let gameStarted = gameStatus.gameStarted;",
+									"",
+									"const gameObjects = gameStatus.gameObjects;",
+									"let player = gameObjects.filter(gameObject => gameObject.spaceshipType === \"PLAYER\")[0];",
+									"let xCoordinate = player.position.x;",
+									"let yCoordinate = player.position.y;",
+									"",
+									"",
+									"pm.test(\"Game level must be equal to 1\", function (){",
+									"    pm.expect(level).to.equal(\"LEVEL_1\");",
+									"});",
+									"",
+									"pm.test(\"Game completed must be false\", function (){",
+									"    pm.expect(gameCompleted).to.equal(false);",
+									"});",
+									"",
+									"pm.test(\"Game started must be true\", function (){",
+									"    pm.expect(gameStarted).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"New player coordinates must be x = 300, y = 90\", function (){",
+									"    pm.expect(xCoordinate).to.equal(300);",
+									"    pm.expect(yCoordinate).to.equal(90);",
+									"});",
+									"",
+									"",
+									"// Wait 5 seconds to let the player kill second enemy",
+									"setTimeout(function(){}, 5000);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"status"
+							]
+						},
+						"description": "This request returns the current game status after reposition. Now new player coordinates should be x = 300, y = 90. After this request test sleeps for 5 seconds to let the player kill the enemy."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Status After Second Kill",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7df7d29-0a64-4b06-8b4e-f28e8540869d",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"const gameStatus = JSON.parse(responseBody);",
+									"const gameObjects = gameStatus.gameObjects;",
+									"",
+									"const enemyObjects = gameObjects.filter(gameObject => gameObject.spaceshipType === \"ENEMY\");",
+									"",
+									"pm.test(\"Enemy count must be equal to 1\", function (){",
+									"    pm.expect(enemyObjects.length).to.equal(1);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"status"
+							]
+						},
+						"description": "This request returns the current game status after second kill. With the reposition, player is able to kill the second enemy. Now the enemy count should be 1."
+					},
+					"response": []
+				},
+				{
+					"name": "End Level Cheat Skip Level 1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/cheat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"cheat"
+							]
+						},
+						"description": "This request passes level 1 with cheat."
+					},
+					"response": []
+				},
+				{
+					"name": "End Level Cheat Skip Level 2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/cheat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"cheat"
+							]
+						},
+						"description": "This request passes level 2 with cheat."
+					},
+					"response": []
+				},
+				{
+					"name": "End Level Cheat Skip Level 3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/cheat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"cheat"
+							]
+						},
+						"description": "This request passes level 3 with cheat."
+					},
+					"response": []
+				},
+				{
+					"name": "End Level Cheat Skip Level 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "914606fd-f7ca-49f8-9904-3c62a9058ffc",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/cheat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"cheat"
+							]
+						},
+						"description": "This request passes level 4 with cheat. Level 5 will supposed to be multiplayer in the future. So currently it does not have any enemies. Thus after this cheat, game checks for enemies, when there is none in level 5 it is completed."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Game Status After Completion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c7df7d29-0a64-4b06-8b4e-f28e8540869d",
+								"exec": [
+									"pm.test(\"Response must be valid and have a body.\", function () {",
+									"     pm.response.to.be.ok;",
+									"     pm.response.to.be.withBody;",
+									"     pm.response.to.be.json;",
+									"});",
+									"",
+									"let gameStatus = JSON.parse(responseBody);",
+									"let level = gameStatus.level;",
+									"let gameCompleted = gameStatus.gameCompleted;",
+									"let gameStarted = gameStatus.gameStarted;",
+									"",
+									"pm.test(\"Game level must be equal to null\", function (){",
+									"    pm.expect(level).to.equal(null);",
+									"});",
+									"",
+									"pm.test(\"Game completed must be true\", function (){",
+									"    pm.expect(gameCompleted).to.equal(true);",
+									"});",
+									"",
+									"pm.test(\"Game started must be true\", function (){",
+									"    pm.expect(gameStarted).to.equal(true);",
+									"});",
+									"",
+									"// Wait 4 seconds to let the game end",
+									"setTimeout(function(){}, 4000);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/game/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"game",
+								"status"
+							]
+						},
+						"description": "This request returns the current game status in the end of game. In this request game must be completed. After request, test waits for 4 seconds to let the server do final operations and end the game."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Leaderboard 7 days",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/leaderboard?limit=10&latest-days-limit=7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"leaderboard"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "latest-days-limit",
+									"value": "7"
+								}
+							]
+						},
+						"description": "This request returns the leaaderbard for the past 7 days. It should have the game that was played recently with score = 20. Note that if there are a lot of objects with higher scores, it might not return the new score."
+					},
+					"response": []
+				}
+			],
+			"description": "This is an example game play to demonstrate a basic flow. Player will register login and then start playing. With current level design Player will kill one enemy in level 1, reposition itself, kill another enemy and then use cheats to end the game.\n\nPlease note that the test will wait several seconds from time to time to let player reposition itself or kill enemies.",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ed73209c-6044-4747-8143-6404c5049313",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ee16f2b0-44e8-49b6-a061-c2941ccd6571",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
